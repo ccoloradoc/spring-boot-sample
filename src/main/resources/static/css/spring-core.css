@@ -1,0 +1,14 @@
+td.profile img {
+    max-width: 30px;
+}
+
+td.profile span {
+    margin-left: 10px;
+}
+
+div.profile img {
+    margin: 0 auto;
+    display: block;
+    padding: 1rem;
+    max-width: 20rem;
+}
