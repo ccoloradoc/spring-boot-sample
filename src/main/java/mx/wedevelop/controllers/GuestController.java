@@ -52,7 +52,8 @@ public class GuestController {
             final @RequestPart(value = "pictureFile", required = false) MultipartFile file,
             final @ModelAttribute("guest") Guest guest) throws IOException {
 
-        guest.setPicture(saveFile(file));
+        if(file != null)
+            guest.setPicture(saveFile(file));
         Guest savedGuest = guestService.saveOrUpdateGuest(guest);
         return "redirect:/guest/" + savedGuest.getId();
     }
