@@ -24,17 +24,25 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public Guest getGuestById(int id) {
-        return guestList.get(id);
+        return guestList.get(id - 1);
+    }
+
+    @Override
+    public Guest saveOrUpdateGuest(Guest guest) {
+        if(guest.getId() == 0) {
+            guest.setId(guestList.size() + 1);
+        }
+        guestList.add(guest);
+        return guest;
     }
 
     private List<Guest> getAll() {
         List<Guest> guestList = new ArrayList<Guest>();
 
-        guestList.add(new Guest(1, "Rex"));
-        guestList.add(new Guest(2, "Sofie"));
-        guestList.add(new Guest(3, "Maui"));
-        guestList.add(new Guest(4, "Chucho"));
-        guestList.add(new Guest(5, "Chaparro"));
+        guestList.add(new Guest(1, "Feliz", "/upload/feliz.jpg"));
+        guestList.add(new Guest(2, "Ojon", "/upload/ojon.jpg"));
+        guestList.add(new Guest(3, "Pinto", "/upload/pinto.jpg"));
+        guestList.add(new Guest(4, "Smarty","/upload/smarty.jpg"));
 
         return guestList;
     }

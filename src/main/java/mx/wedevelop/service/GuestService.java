@@ -10,4 +10,5 @@ import java.util.List;
 public interface GuestService {
     List<Guest> listAll();
     Guest getGuestById(int id);
+    Guest saveOrUpdateGuest(Guest guest);
 }
