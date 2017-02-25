@@ -2,6 +2,7 @@ package mx.wedevelop.controllers;
 
 import mx.wedevelop.model.Guest;
 import mx.wedevelop.service.GuestService;
+import mx.wedevelop.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +20,18 @@ import java.nio.file.Paths;
  */
 @Controller
 public class GuestController {
-    public static final String UPLOADED_FOLDER =
-            System.getProperty("user.dir") + "/src/main/resources/static/upload/";
 
     private GuestService guestService;
+    private StorageService storeService;
 
     @Autowired
     public void setGuestService(GuestService guestService) {
         this.guestService = guestService;
+    }
+
+    @Autowired
+    public void setStoreService(StorageService storeService) {
+        this.storeService = storeService;
     }
 
     @RequestMapping("/guest")
@@ -47,32 +52,29 @@ public class GuestController {
         return "guest/new";
     }
 
+    @RequestMapping("/guest/{id}/edit")
+    public String editGuest(@PathVariable int id, Model model) {
+        model.addAttribute("guest", guestService.findById(id));
+        return "guest/new";
+    }
+
     @RequestMapping(value = "/guest", method = RequestMethod.POST)
     public String saveOrUpdateGuest(
             final @RequestPart(value = "pictureFile", required = false) MultipartFile file,
             final @ModelAttribute("guest") Guest guest) throws IOException {
 
+        //Store Image
         if(!file.isEmpty())
-            guest.setPicture(saveFile(file));
+            guest.setPicture(storeService.store(file));
 
         Guest savedGuest = guestService.saveOrUpdate(guest);
 
         return "redirect:/guest/" + savedGuest.getId();
     }
 
-    private String saveFile(MultipartFile file) {
-        String filePath = "";
-        try {
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
-
-            filePath = "/upload/" + path.getFileName();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return filePath;
+    @RequestMapping("/guest/{id}/delete")
+    public String deleteGuest(@PathVariable int id, Model model) {
+        guestService.delete(id);
+        return "redirect: /guest";
     }
 }
