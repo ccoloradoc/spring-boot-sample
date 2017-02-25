@@ -20,6 +20,7 @@
             <form th:object="${guest}" th:action="@{/guest}" method="post" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{id}"/>
                 <input type="hidden" th:field="*{version}"/>
+                <input type="hidden" th:field="*{picture}"/>
                 <div class="form-group">
                     <label for="name">Nombre</label>
                     <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Pet name"/>

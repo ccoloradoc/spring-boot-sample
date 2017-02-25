@@ -60,8 +60,8 @@ public class GuestController {
 
     @RequestMapping(value = "/guest", method = RequestMethod.POST)
     public String saveOrUpdateGuest(
-            final @RequestPart(value = "pictureFile", required = false) MultipartFile file,
-            final @ModelAttribute("guest") Guest guest) throws IOException {
+        final @RequestPart(value = "pictureFile", required = false) MultipartFile file,
+        final @ModelAttribute("guest") Guest guest) throws IOException {
 
         //Store Image
         if(!file.isEmpty())
@@ -73,8 +73,8 @@ public class GuestController {
     }
 
     @RequestMapping("/guest/{id}/delete")
-    public String deleteGuest(@PathVariable int id, Model model) {
+    public String deleteGuest(@PathVariable int id) {
         guestService.delete(id);
-        return "redirect: /guest";
+        return "redirect:/guest";
     }
 }

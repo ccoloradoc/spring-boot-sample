@@ -1,5 +1,6 @@
 package mx.wedevelop.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.nio.file.Paths;
 /**
  * Created by colorado on 24/02/17.
  */
+@Service
 public class StorageServiceImp implements StorageService {
     public static final String UPLOADED_FOLDER =
             System.getProperty("user.dir") + "/src/main/resources/static/upload/";

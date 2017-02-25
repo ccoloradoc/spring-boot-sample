@@ -15,22 +15,30 @@
           th:href="@{/css/spring-core.css}" rel="stylesheet" media="screen"/>
 </head>
 <body class="container">
-    <div class="row" th:if="${not #lists.isEmpty(guestList)}">
+    <div class="row">
         <h2 class="text-center">These are our guest</h2>
         <table class="table table-striped">
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Action</th>
-            </tr>
-            <tr th:each="guest : ${guestList}">
-                <td th:text="${guest.id}"></td>
-                <td class="profile">
-                    <img class="img-circle" th:src="${guest.picture}"/>
-                    <span th:text="${guest.name}"></span>
-                </td>
-                <td><a th:href="${'/guest/' + guest.id}">See More</a></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody th:if="${not #lists.isEmpty(guestList)}">
+                <tr th:each="guest : ${guestList}">
+                    <td th:text="${guest.id}"></td>
+                    <td class="profile">
+                        <img class="img-circle" th:src="${guest.picture}"/>
+                        <span th:text="${guest.name}"></span>
+                    </td>
+                    <td><a th:href="${'/guest/' + guest.id}">See More</a></td>
+                    <td><a th:href="${'/guest/' + guest.id + '/edit'}">Edit</a></td>
+                    <td><a th:href="${'/guest/' + guest.id + '/delete'}">Delete</a></td>
+                </tr>
+            </tbody>
             <tfooter>
                 <tr>
                     <td><a href="/guest/new">Add new</a></td>
