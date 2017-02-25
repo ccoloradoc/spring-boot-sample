@@ -1,6 +1,7 @@
 package mx.wedevelop.service;
 
 import mx.wedevelop.model.Guest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
  * Created by colorado on 23/02/17.
  */
 @Service
+@Profile("map")
 public class GuestServiceImpl implements GuestService {
     private List<Guest> guestList;
 
@@ -18,22 +20,27 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
-    public List<Guest> listAll() {
+    public List<Guest> findAll() {
         return guestList;
     }
 
     @Override
-    public Guest getGuestById(int id) {
+    public Guest findById(int id) {
         return guestList.get(id - 1);
     }
 
     @Override
-    public Guest saveOrUpdateGuest(Guest guest) {
+    public Guest saveOrUpdate(Guest guest) {
         if(guest.getId() == 0) {
             guest.setId(guestList.size() + 1);
         }
         guestList.add(guest);
         return guest;
+    }
+
+    @Override
+    public void delete(int id) {
+
     }
 
     private List<Guest> getAll() {

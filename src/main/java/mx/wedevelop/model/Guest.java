@@ -1,10 +1,18 @@
 package mx.wedevelop.model;
 
+import javax.persistence.*;
+
 /**
  * Created by colorado on 23/02/17.
  */
+@Entity
 public class Guest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Version
+    private int version;
+
     private String name;
     private String picture;
     private int age;
@@ -25,6 +33,14 @@ public class Guest {
 
     public String getName() {
         return name;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public String getPicture() {

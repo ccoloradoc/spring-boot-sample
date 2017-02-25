@@ -31,14 +31,14 @@ public class GuestController {
 
     @RequestMapping("/guest")
     public String listAllguest(Model model) {
-        model.addAttribute("guestList", guestService.listAll());
+        model.addAttribute("guestList", guestService.findAll());
         return "guest/list";
     }
 
     @RequestMapping("/guest/{id}")
     public String findGuest(@PathVariable int id, Model model) {
-        model.addAttribute("guest", guestService.getGuestById(id));
-        return "guest/guest";
+        model.addAttribute("guest", guestService.findById(id));
+        return "guest/show";
     }
 
     @RequestMapping("/guest/new")
@@ -52,9 +52,11 @@ public class GuestController {
             final @RequestPart(value = "pictureFile", required = false) MultipartFile file,
             final @ModelAttribute("guest") Guest guest) throws IOException {
 
-        if(file != null)
+        if(!file.isEmpty())
             guest.setPicture(saveFile(file));
-        Guest savedGuest = guestService.saveOrUpdateGuest(guest);
+
+        Guest savedGuest = guestService.saveOrUpdate(guest);
+
         return "redirect:/guest/" + savedGuest.getId();
     }
 

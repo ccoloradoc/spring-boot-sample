@@ -49,7 +49,7 @@ public class GuestControllerTest {
         guestList.add(new Guest());
         guestList.add(new Guest());
 
-        when(guestService.listAll()).thenReturn(guestList);
+        when(guestService.findAll()).thenReturn(guestList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/guest"))
             .andExpect(status().isOk())
@@ -61,7 +61,7 @@ public class GuestControllerTest {
     public void testShow() throws Exception {
         Guest guest = new Guest(1, "Firulais", "/upload/firulais.jpg");
 
-        when(guestService.getGuestById(guest.getId())).thenReturn(guest);
+        when(guestService.findById(guest.getId())).thenReturn(guest);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/guest/" + guest.getId()))
                 .andExpect(status().isOk())
@@ -91,7 +91,7 @@ public class GuestControllerTest {
         MockMultipartFile pictureFile = new MockMultipartFile("data", "firulais.png", "text/plain", "randomimg".getBytes());
 
 
-        when(guestService.saveOrUpdateGuest(Matchers.<Guest>any()))
+        when(guestService.saveOrUpdate(Matchers.<Guest>any()))
                 .thenReturn(guest);
 
         mockMvc.perform(
@@ -109,7 +109,7 @@ public class GuestControllerTest {
             .andExpect(model().attribute("guest", hasProperty("picture", is(picture))));
 
         ArgumentCaptor<Guest> captor = ArgumentCaptor.forClass(Guest.class);
-        verify(guestService).saveOrUpdateGuest(captor.capture());
+        verify(guestService).saveOrUpdate(captor.capture());
 
         assertEquals(id, captor.getValue().getId());
         assertEquals(name, captor.getValue().getName());

@@ -13,8 +13,11 @@
     <link href="../static/css/spring-core.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
 </head>
-<body class="container">
-    <h1 class="text-center">PetHostel</h1>
-    <h2 class="text-center">Welcome to our hostel where you can meet your new best friend</h2>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container">
+        <h1 class="text-center">PetHostel</h1>
+        <h2 class="text-center">Welcome to our hostel where you can meet your new best friend</h2>
+    </div>
 </body>
 </html>
