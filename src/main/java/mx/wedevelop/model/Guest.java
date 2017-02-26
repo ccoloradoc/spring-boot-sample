@@ -27,6 +27,12 @@ public class Guest {
         this.picture = picture;
     }
 
+    public Guest(String name, int age, String picture) {
+        this.id = id;
+        this.name = name;
+        this.picture = picture;
+    }
+
     public int getId() {
         return id;
     }
